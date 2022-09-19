@@ -11,7 +11,7 @@ export default function App() {
     fetch('https://www.balldontlie.io/api/v1/players')
     .then(res => res.json())
     .then(res => {
-      setJogadores(res)
+      setJogadores(res.data)
     });
   }, []);
 
@@ -19,7 +19,9 @@ export default function App() {
 
   return (
     <div className="App">
-      {Object.values(jogadores).map(x=>(<li key={x.id}><h1>{x.name}</h1></li>))}
+      {jogadores.map(x=>(<li key={x.id}><h1>{x.first_name}</h1>
+        <h1>{x.team.name}</h1>
+      </li>))}
     </div>
   );
 }
