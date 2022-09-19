@@ -4,14 +4,14 @@ import { useEffect } from "react";
 
 export default function App() {
 
-
-
   const [jogadores, setJogadores] = useState([]);
   useEffect(() => {
-    fetch('https://www.balldontlie.io/api/v1/players')
+    fetch('https://www.scorebat.com/video-api/v3/feed/?token=MjY0NzdfMTY2MjY4NjEzN19hYTQ0ZTgwNTBhMzUzNmNkYjI2YTAzMTM2MTQ0ZTcwMzg1MWZiMTk3')
     .then(res => res.json())
     .then(res => {
-      setJogadores(res.data)
+      const resposta = res.response.map(res => { return { 'titulo': res.title.toLowerCase(), 'competicao': res.competition, 'thumbnail': res.thumbnail, 'data': res.date
+      ,'video': res.videos.map(x=>x.embed) } })
+      setJogadores(resposta)
     });
   }, []);
 
@@ -19,9 +19,15 @@ export default function App() {
 
   return (
     <div className="App">
-      {jogadores.map(x=>(<li key={x.id}><h1>{x.first_name}</h1>
-        <h1>{x.team.name}</h1>
-      </li>))}
+      {jogadores.map(x=>(
+      <div class="container text-center">
+        <div class="row">
+          <div class="col">
+            {x.title}
+          </div>
+        </div>
+      </div>
+          ))}
     </div>
   );
 }
