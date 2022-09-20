@@ -1,34 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import React, { useState } from "react";
+import { useEffect } from "react";
+import Header from './Header'
+import Filter from './Filter'
 
-function App() {
-  const [count, setCount] = useState(0)
 
+export default function App() {
+
+  const [filtroValue, setFiltroValue] = useState('')
+
+  const [jogadores, setJogadores] = useState([]);
+  useEffect(() => {
+    fetch('https://www.scorebat.com/video-api/v3/feed/?token=MjY0NzdfMTY2MjY4NjEzN19hYTQ0ZTgwNTBhMzUzNmNkYjI2YTAzMTM2MTQ0ZTcwMzg1MWZiMTk3')
+      .then(res => res.json())
+      .then(res => {
+        const resposta = res.response.map(res => {
+          return {
+            'titulo': res.title.toUpperCase(), 'competicao': res.competition, 'thumbnail': res.thumbnail, 'data': res.date
+            , 'video': res.matchviewUrl
+          }
+        })
+        setJogadores(resposta)
+      });
+  }, []);
+
+  console.log(jogadores);
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <>
+      {jogadores.map((e)=>(
+        <h1>{e.titulo}</h1>
+      ))}
+      </>
     </div>
-  )
+  );
 }
-
-export default App
