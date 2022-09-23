@@ -22,18 +22,13 @@ export default function App() {
           }
         })
         setJogadores(resposta)
-        setJogadoresFiltrados(resposta)
       });
   }, []);
 
-  // console.log(jogadores)
 
   function handleFiltroValue(value) {
     setFiltroValue(value)
-    const jf = jogadores.filter( jogador => {return jogador.titulo.toLowerCase().includes(value.toLowerCase())})
-    console.log('Jogadores filtrados');
-    console.log(jf);
-    setJogadoresFiltrados(jf)
+    setJogadores(jogadores.filter(player => {return player.titulo.toLowerCase().includes(value.toLowerCase())}))
   }
 
   return (
