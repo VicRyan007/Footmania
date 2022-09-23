@@ -10,17 +10,19 @@ export default function App() {
   const [filtroValue, setFiltroValue] = useState('')
 
   const [jogadores, setJogadores] = useState([]);
+  const [jogadoresFiltrados, setJogadoresFiltrados] = useState([]);
   useEffect(() => {
     fetch('https://www.scorebat.com/video-api/v3/feed/?token=MjY0NzdfMTY2MjY4NjEzN19hYTQ0ZTgwNTBhMzUzNmNkYjI2YTAzMTM2MTQ0ZTcwMzg1MWZiMTk3')
       .then(res => res.json())
       .then(res => {
         const resposta = res.response.map(res => {
           return {
-            'titulo': res.title.toUpperCase(), 'competicao': res.competition, 'thumbnail': res.thumbnail, 'data': res.date
+            'titulo': res.title, 'competicao': res.competition, 'thumbnail': res.thumbnail, 'data': res.date
             , 'video': res.matchviewUrl
           }
         })
         setJogadores(resposta)
+        setJogadoresFiltrados(resposta)
       });
   }, []);
 
@@ -28,6 +30,10 @@ export default function App() {
 
   function handleFiltroValue(value) {
     setFiltroValue(value)
+    const jf = jogadores.filter( jogador => {return jogador.titulo.toLowerCase().includes(value.toLowerCase())})
+    console.log('Jogadores filtrados');
+    console.log(jf);
+    setJogadoresFiltrados(jf)
   }
 
   return (
@@ -36,7 +42,7 @@ export default function App() {
       <Filter  onChangeFiltroValue={handleFiltroValue} />
       
       <div className="row row-cols-1 row-cols-md-2 g-4">
-        {jogadores.map((j, i) => (
+        {jogadoresFiltrados.map((j, i) => (
           <>
             <div key={i} >
               <div className="card" style={{background: "#FFC72C"}}>
@@ -46,7 +52,7 @@ export default function App() {
                     <h5 className="card-title">{j.titulo}</h5>
                     <p className="card-text">{j.competicao}</p>
                   </div>
-                  <iframe src={j.video} width="950" height="950" frameborder="0"></iframe>
+                  <iframe key={i} src={j.video} width="950" height="950" frameBorder="0"></iframe>
                 </div>
               </div>
             </div>

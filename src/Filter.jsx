@@ -7,7 +7,7 @@ export default function Filtro(props) {
 
     function handleInputChange(event){
         setInputValue(event.target.value)
-        props.onChangeFilterValue(event.target.value)
+        props.onChangeFiltroValue(event.target.value)
     }
 
 
