@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Header from './Header'
+import Filter from './Filter'
 
 
 export default function App() {
+
+  const [jogadoresFiltrados, setJogadoresFiltrados] = useState([])
 
   const [jogadores, setJogadores] = useState([]);
   useEffect(() => {
@@ -12,7 +16,7 @@ export default function App() {
       .then(res => {
         const resposta = res.response.map(res => {
           return {
-            'titulo': res.title.toUpperCase(), 'competicao': res.competition, 'thumbnail': res.thumbnail, 'data': res.date
+            'titulo': res.title, 'competicao': res.competition, 'thumbnail': res.thumbnail, 'data': res.date
             , 'video': res.matchviewUrl
           }
         })
@@ -20,34 +24,39 @@ export default function App() {
       });
   }, []);
 
-  console.log(jogadores)
+  // console.log(jogadores)
+
+  function handleFiltroValue(value) {
+    
+    const jf = jogadores.filter(player => player.titulo.toLowerCase().includes(value.toLowerCase()))
+    setJogadoresFiltrados(jf)
+    setJogadores(jogadoresFiltrados)
+    
+  }
 
   return (
-    <div className="App =">
-      {jogadores.map((j, i) => (
-
-        <>
-        <div className="row container justify-content-around">
-          <div key={i} >
-            <div className="card ">
-              <div >
-                <img src={j.thumbnail} className="img-thumbnail" height="600" width="600"  alt="..."/>
+    <div className="App">
+      <Header/>
+      <Filter  onChangeFilterValue={handleFiltroValue} />
+      
+      <div className="row row-cols-1 row-cols-lg-2 g-4">
+        {jogadores.map((j, i) => (
+          <>
+            <div key={i} >
+              <div className="card" style={{background: "#FFC72C"}}>
+                <div >
+                  <img src={j.thumbnail} className="card-img-top" alt="..." />
                   <div className="card-body">
                     <h5 className="card-title">{j.titulo}</h5>
                     <p className="card-text">{j.competicao}</p>
                   </div>
                   <iframe src={j.video} width="600" height="600" frameborder="0"></iframe>
+                </div>
               </div>
             </div>
-            </div>
-        </div>
-            
-        </>
-
-        
-
-
-      ))}
+          </>
+        ))}
+      </div>
     </div>
   );
 }
