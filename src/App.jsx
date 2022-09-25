@@ -7,7 +7,6 @@ import Filter from './Filter'
 
 export default function App() {
 
-  const [jogadoresFiltrados, setJogadoresFiltrados] = useState([])
 
   const [jogadores, setJogadores] = useState([]);
   useEffect(() => {
@@ -24,14 +23,9 @@ export default function App() {
       });
   }, []);
 
-  // console.log(jogadores)
 
   function handleFiltroValue(value) {
-    
-    const jf = jogadores.filter(player => player.titulo.toLowerCase().includes(value.toLowerCase()))
-    setJogadoresFiltrados(jf)
-    setJogadores(jogadoresFiltrados)
-    
+    setJogadores(jogadores.filter(player => player.titulo.toLowerCase().includes(value.toLowerCase())))
   }
 
   return (
