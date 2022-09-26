@@ -8,9 +8,9 @@ import Filter from './Filter'
 export default function App() {
 
   const [filtroValue, setFiltroValue] = useState('')
-
   const [jogadores, setJogadores] = useState([]);
   const [jogadoresFiltrados, setJogadoresFiltrados] = useState([]);
+
   useEffect(() => {
     fetch('https://www.scorebat.com/video-api/v3/feed/?token=MjY0NzdfMTY2MjY4NjEzN19hYTQ0ZTgwNTBhMzUzNmNkYjI2YTAzMTM2MTQ0ZTcwMzg1MWZiMTk3')
       .then(res => res.json())
@@ -22,13 +22,14 @@ export default function App() {
           }
         })
         setJogadores(resposta)
+        setJogadoresFiltrados(resposta)
       });
   }, []);
 
 
   function handleFiltroValue(value) {
     setFiltroValue(value)
-    setJogadores(jogadores.filter(player => {return player.titulo.toLowerCase().includes(value.toLowerCase())}))
+    setJogadoresFiltrados(jogadores.filter( jogador => {return jogador.titulo.toLowerCase().includes(value.toLowerCase())}))
   }
 
   return (
