@@ -45,10 +45,10 @@ export default function App() {
                 <div >
                   <img src={j.thumbnail} className="card-img-top" alt="..." />
                   <div className="card-body">
-                    <h5 className="card-title">{j.titulo}</h5>
-                    <p className="card-text">{j.competicao}</p>
+                    <h5 className="card-title text-center">{j.titulo}</h5>
+                    <p className="card-text text-center">{j.competicao}</p>
                   </div>
-                  <iframe key={i} src={j.video} width="950" height="950" frameBorder="0"></iframe>
+                  <iframe key={i} src={j.video} width="600" height="950" frameBorder="0"></iframe>
                 </div>
               </div>
             </div>

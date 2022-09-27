@@ -19,7 +19,7 @@
     flex-direction: column;
 }
 
-div > p {
+.paragraph {
     line-height: 0.6;
     font-family: 'Silkscreen', cursive;
     color: white;

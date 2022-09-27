@@ -14,11 +14,11 @@ export default function Header() {
                 <img  src="src\assets\—Pngtree—football player_1795041.png" width={200} height={200} alt="" />
                 <div className="div" >
                     <h1 style={{ fontFamily: "'Bungee Spice'" }}>FootMania</h1>
-                    <p>Dev´s {"</>"} :</p>
-                    <p>José Alfredo</p>
-                    <p>Mº Gabriela</p>
-                    <p>Gabriel Silva</p>
-                    <p>Ryan Víctor</p>
+                    <p className="paragraph">Dev´s {"</>"} :</p>
+                    <p className="paragraph">José Alfredo</p>
+                    <p className="paragraph">Mº Gabriela</p>
+                    <p className="paragraph">Gabriel Silva</p>
+                    <p className="paragraph">Ryan Víctor</p>
                 </div>
                 <img  src="src\assets\—Pngtree—soccer player_4493291.png" width={200} height={200} alt="" />
             </div>
